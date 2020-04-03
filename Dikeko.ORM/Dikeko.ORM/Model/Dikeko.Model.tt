@@ -1,0 +1,19 @@
+﻿<#@ template debug="false" hostspecific="true" language="C#" #>
+<#@ assembly  name="System" #>
+<#@ assembly  name="System.Core" #>
+<#@ assembly  name="System.Data" #>
+<#@ assembly  name="$(TargetDir)\Dikeko.ORM.dll" #>
+<#@ import namespace="System.IO" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Data.SqlClient" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Reflection" #>
+<#@ import namespace="Dikeko.ORM" #>
+<#@ output extension=".cs" #>
+
+<#
+	            string connstring="Data Source=.;uid=sa;pwd=password;database=DataName;";
+				GenerateModels generateModels = new GenerateModels();
+				string str= generateModels.GenerateEntityClass(connstring);
+				WriteLine(str);
+#>

@@ -11,6 +11,10 @@ namespace Dikeko.ORM.DataBase
     public class DikekoDataBase : IDikekoDataBase
     {
         string connectionString = string.Empty;
+      /// <summary>
+      /// 数据库操作方法
+      /// </summary>
+      /// <param name="connname">数据库连接名称</param>
         public DikekoDataBase(string connname)
         {
             connectionString = System.Configuration.ConfigurationManager.ConnectionStrings[connname].ToString(); ;
@@ -170,9 +174,8 @@ namespace Dikeko.ORM.DataBase
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        public T SingleOrDefault<T>()
+        public T SingleOrDefault<T>(T t)
         {
-            T t = Activator.CreateInstance<T>();
             string sql = DataBaseAuxiliary.Current.SelectSQL(t, SqlQueryTypeEnum.SingleOrDefault);
             return new DataBaseAuxiliary(connectionString).DataReaderSingle(t, sql);
         }

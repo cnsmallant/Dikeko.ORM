@@ -229,10 +229,7 @@ namespace Dikeko.ORM.DataBase
                 }
                 else
                 {
-                    if (key.Name != item.Name)
-                    {
-                        value.Add(new SqlParameter("@" + item.Name, item.GetValue(t, null)));
-                    }
+                    value.Add(new SqlParameter("@" + item.Name, item.GetValue(t, null)));
                 }
             }
             return value;
@@ -258,7 +255,7 @@ namespace Dikeko.ORM.DataBase
                     {
                         key.Name = attribute.Name;
                         key.AutoIncrement = attribute.AutoIncrement;
-                        key.Value = item.GetValue(item.Name, null);
+                        key.Value = item.GetValue(t, null);
                         break;
                     }
                 }
@@ -501,8 +498,8 @@ namespace Dikeko.ORM.DataBase
         public string SelectSQL<T>(T t, SqlQueryTypeEnum sqlQueryType)
         {
             var table = GetTableName(t);
-            var col = GetColumns(t, OperationMethodEnum.Get);
-            var primaryKey = GetPrimaryKey(t);
+            var col = string.Join(",", GetColumns(t, OperationMethodEnum.Get).ToArray());
+            var primaryKey = GetPrimaryKeyValue(t);
             var sql = string.Empty;
             switch (sqlQueryType)
             {
@@ -510,7 +507,7 @@ namespace Dikeko.ORM.DataBase
                     sql = $"SELECT TOP 1 {col}  FROM {table}";
                     break;
                 case SqlQueryTypeEnum.SingleOrDefault:
-                    sql = $"SELECT  {col}  FROM {table} WHERE {primaryKey}=@{primaryKey}";
+                    sql = $"SELECT  {col}  FROM {table} WHERE {primaryKey.Name}='{primaryKey.Value}'";
                     break;
                 case SqlQueryTypeEnum.FetchOrDefault:
                     sql = $"SELECT  {col}  FROM {table}";

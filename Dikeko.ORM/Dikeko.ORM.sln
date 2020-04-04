@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.29920.165
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dikeko.ORM", "Dikeko.ORM\Dikeko.ORM.csproj", "{D1C97E17-B784-4DD4-9CEA-BFA0D74C1F91}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dikeko.ORM.Test", "Dikeko.ORM.Test\Dikeko.ORM.Test.csproj", "{D91A740B-6887-4493-9B0A-61AB8C3F2E1F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{D1C97E17-B784-4DD4-9CEA-BFA0D74C1F91}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D1C97E17-B784-4DD4-9CEA-BFA0D74C1F91}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D1C97E17-B784-4DD4-9CEA-BFA0D74C1F91}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D91A740B-6887-4493-9B0A-61AB8C3F2E1F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D91A740B-6887-4493-9B0A-61AB8C3F2E1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D91A740B-6887-4493-9B0A-61AB8C3F2E1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D91A740B-6887-4493-9B0A-61AB8C3F2E1F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

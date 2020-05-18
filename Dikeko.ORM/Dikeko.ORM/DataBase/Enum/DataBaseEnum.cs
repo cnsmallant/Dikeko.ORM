@@ -49,5 +49,19 @@ namespace Dikeko.ORM.DataBase.Enum
             /// </summary>
             CountOrDefault
         }
+        /// <summary>
+        /// SQL server 版本
+        /// </summary>
+        public enum SqlVersion
+        {
+            /// <summary>
+            /// SQL server 2012 以下版本
+            /// </summary>
+            Old,
+            /// <summary>
+            /// SQL server 2012 以上版本
+            /// </summary>
+            New
+        }
     }
 }

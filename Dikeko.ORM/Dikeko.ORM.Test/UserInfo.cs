@@ -23,6 +23,9 @@ namespace Dikeko.ORM.Test
             }
         }
 
+        /// <summary>
+        /// 实例化数据库操作方法
+        /// </summary>
         DikekoDataBase db = new DikekoDataBase("DefaultConnection");
         /// <summary>
         /// 添加用户

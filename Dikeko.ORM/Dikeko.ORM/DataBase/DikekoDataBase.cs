@@ -11,10 +11,10 @@ namespace Dikeko.ORM.DataBase
     public class DikekoDataBase : IDikekoDataBase
     {
         string connectionString = string.Empty;
-      /// <summary>
-      /// 数据库操作方法
-      /// </summary>
-      /// <param name="connname">数据库连接名称</param>
+        /// <summary>
+        /// 数据库操作方法
+        /// </summary>
+        /// <param name="connname">数据库连接名称</param>
         public DikekoDataBase(string connname)
         {
             connectionString = System.Configuration.ConfigurationManager.ConnectionStrings[connname].ToString(); ;
@@ -252,7 +252,6 @@ namespace Dikeko.ORM.DataBase
             List<T> list = new DataBaseAuxiliary(connectionString).DataReaderMultiple(t, sql, args).ToList();
             return list;
         }
-
         /// <summary>
         /// 分页
         /// </summary>
@@ -260,9 +259,34 @@ namespace Dikeko.ORM.DataBase
         /// <param name="CurrentPage">当前页</param>
         /// <param name="PageSize">每页条数</param>
         /// <param name="sql">sql语句</param>
+        /// <param name="sqlVersion">sql版本</param>
         /// <param name="args">参数</param>
         /// <returns></returns>
-        public Page<T> PageOrDefault<T>(int CurrentPage, int PageSize, string sql, params object[] args)
+        public Page<T> PageOrDefault<T>(int CurrentPage, int PageSize, string sql, SqlVersion sqlVersion, params object[] args)
+        {
+            Page<T> page = new Page<T>();
+            switch (sqlVersion)
+            {
+                case SqlVersion.Old:
+                    return PageOrDefaultForOld<T>(CurrentPage, PageSize, sql, args);
+                case SqlVersion.New:
+                    return PageOrDefaultForNew<T>(CurrentPage, PageSize, sql, args);
+
+                default:
+                    return page;
+            }
+        }
+
+        /// <summary>
+        /// 分页-SQL server 2012 以下版本用
+        /// </summary>
+        /// <typeparam name="T">实体</typeparam>
+        /// <param name="CurrentPage">当前页</param>
+        /// <param name="PageSize">每页条数</param>
+        /// <param name="sql">sql语句</param>
+        /// <param name="args">参数</param>
+        /// <returns></returns>
+        private Page<T> PageOrDefaultForOld<T>(int CurrentPage, int PageSize, string sql, params object[] args)
         {
             T t = Activator.CreateInstance<T>();
             int count = Convert.ToInt32(CountOrDefault<T>(sql, args));
@@ -282,6 +306,38 @@ namespace Dikeko.ORM.DataBase
             result.Items = list;
             return result;
         }
+
+        /// <summary>
+        /// 分页-SQL server 2012 以上版本用
+        /// </summary>
+        /// <typeparam name="T">实体</typeparam>
+        /// <param name="CurrentPage">当前页</param>
+        /// <param name="PageSize">每页条数</param>
+        /// <param name="sql">sql语句</param>
+        /// <param name="args">参数</param>
+        /// <returns></returns>
+        private Page<T> PageOrDefaultForNew<T>(int CurrentPage, int PageSize, string sql, params object[] args)
+        {
+            T t = Activator.CreateInstance<T>();
+            int count = Convert.ToInt32(CountOrDefault<T>(sql, args));
+            sql = $@"{sql} OFFSET (({CurrentPage}-1)*{PageSize}) ROWS FETCH NEXT {PageSize} ROWS ONLY;";
+            var list = new DataBaseAuxiliary(connectionString).DataReaderMultiple(t, sql).ToList();
+            var result = new Page<T>
+            {
+                PageIndex = CurrentPage,
+                PageSize = PageSize,
+                TotalItems = count,
+            };
+            result.TotalPages = result.TotalItems / PageSize;
+
+            if ((result.TotalItems % PageSize) != 0)
+            {
+                result.TotalPages++;
+            }
+            result.Items = list;
+            return result;
+        }
+
 
         /// <summary>
         /// 事务

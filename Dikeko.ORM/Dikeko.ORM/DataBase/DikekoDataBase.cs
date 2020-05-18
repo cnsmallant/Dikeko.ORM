@@ -259,13 +259,13 @@ namespace Dikeko.ORM.DataBase
         /// <param name="CurrentPage">当前页</param>
         /// <param name="PageSize">每页条数</param>
         /// <param name="sql">sql语句</param>
-        /// <param name="sqlVersion">sql版本</param>
+        /// <param name="sqlVersion">sql版本 0-sql2012以前版本 1-sql2012以后版本</param>
         /// <param name="args">参数</param>
         /// <returns></returns>
-        public Page<T> PageOrDefault<T>(int CurrentPage, int PageSize, string sql, SqlVersion sqlVersion, params object[] args)
+        public Page<T> PageOrDefault<T>(int CurrentPage, int PageSize, string sql, int sqlVersion, params object[] args)
         {
             Page<T> page = new Page<T>();
-            switch (sqlVersion)
+            switch ((SqlVersion)sqlVersion)
             {
                 case SqlVersion.Old:
                     return PageOrDefaultForOld<T>(CurrentPage, PageSize, sql, args);

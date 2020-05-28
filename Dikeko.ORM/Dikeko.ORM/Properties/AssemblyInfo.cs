@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // 控制。更改这些特性值可修改
 // 与程序集关联的信息。
 [assembly: AssemblyTitle("Dikeko.ORM")]
-[assembly: AssemblyDescription("Dikeko.ORM.Core是一个简单的.NET轻量级的ORM，目前仅支持SqlServer数据库。.NET CORE版需要手动添加实体类，或者下载源码获取T4模版。如果遇到不明白的或者发现BUG请加入QQ群：Java .Net Go PHP UI群：574879752 直接@群主")]
+[assembly: AssemblyDescription("Dikeko.ORM 是一个简单的.NET轻量级的ORM，目前仅支持SqlServer数据库。.NET CORE版需要手动添加实体类，或者下载源码获取T4模版。如果遇到不明白的或者发现BUG请加入QQ群：Java .Net Go PHP UI群：574879752 直接@群主")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Dikeko")]
 [assembly: AssemblyProduct("Dikeko.ORM")]
@@ -32,5 +32,5 @@ using System.Runtime.InteropServices;
 //可以指定所有这些值，也可以使用“生成号”和“修订号”的默认值
 //通过使用 "*"，如下所示:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.4")]
-[assembly: AssemblyFileVersion("1.0.4")]
+[assembly: AssemblyVersion("1.0.6")]
+[assembly: AssemblyFileVersion("1.0.6")]

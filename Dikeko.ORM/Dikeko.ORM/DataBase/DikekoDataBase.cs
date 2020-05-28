@@ -262,7 +262,7 @@ namespace Dikeko.ORM.DataBase
         /// <param name="sqlVersion">sql版本 0-sql2012以前版本 1-sql2012以后版本</param>
         /// <param name="args">参数</param>
         /// <returns></returns>
-        public Page<T> PageOrDefault<T>(int CurrentPage, int PageSize, string sql, int sqlVersion, params object[] args)
+        public Page<T> PageOrDefault<T>(int CurrentPage, int PageSize, string sql, int sqlVersion=1, params object[] args)
         {
             Page<T> page = new Page<T>();
             switch ((SqlVersion)sqlVersion)
